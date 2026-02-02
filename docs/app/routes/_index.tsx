@@ -23,7 +23,7 @@ export default function Index() {
       <span className={css({ fontWeight: '900', fontSize: '4xl', mt: '4rem' })}>LOLICON</span>
       <span>lol, cute, friendry Rect iconset :)</span>
       <a
-        href='https://github.com/nantokaworks/lolicon'
+        href='https://github.com/ichi0g0y/lolicon'
         target='_blank'
       >
         <span className={flex({ fontWeight: '800', fontSize: 'lg', alignItems: 'center' })}>
@@ -74,7 +74,7 @@ export default function Index() {
           fontSize: 'md',
         })}
       >
-        presented by nantokaworks
+        presented by ichi0g0y
       </div>
     </div>
   )
