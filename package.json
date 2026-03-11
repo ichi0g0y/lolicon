@@ -9,7 +9,7 @@
   "repository": "github:ichi0g0y/lolicon",
   "bugs": "https://github.com/ichi0g0y/lolicon/issues",
   "homepage": "https://github.com/ichi0g0y/lolicon#readme",
-  "author": "Shinichi Yamashita",
+  "author": "ichi0g0y",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
