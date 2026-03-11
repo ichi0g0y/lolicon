@@ -30,3 +30,7 @@ Built with/supports TypeScript.
 | Prop   | Type             | Default | Details             |
 | ------ | ---------------- | ------- | ------------------- |
 | `size` | Number or string | `32`    | Sets width & height |
+
+## Credits
+
+Icon designs are based on [spectrum-icons](https://github.com/lachlanjc/spectrum-icons) by [@lachlanjc](https://github.com/lachlanjc), originally from [Spectrum](https://spectrum.chat)'s iconset.
