@@ -1,58 +1,27 @@
 import { DoorLeaveIcon } from 'lolicon'
-import { css } from 'styled-system/css'
-import { flex } from 'styled-system/patterns'
 import { Icons } from '~/datas/icons'
 
 export default function App() {
   return (
-    <div
-      className={flex({
-        w: 'full',
-        justify: 'center',
-        alignItems: 'center',
-        direction: 'column',
-        gap: '2rem',
-        px: { base: '0rem', sm: '2rem', md: '3rem', lg: '4rem' },
-      })}
-    >
-      <span className={css({ fontWeight: '900', fontSize: '4xl', mt: '4rem' })}>LOLICON</span>
+    <div className='flex w-full flex-col items-center justify-center gap-8 px-0 sm:px-8 md:px-12 lg:px-16'>
+      <span className='mt-16 text-4xl font-black'>LOLICON</span>
       <span>lol, cute, friendry Rect iconset :)</span>
       <a
         href='https://github.com/ichi0g0y/lolicon'
         target='_blank'
       >
-        <span className={flex({ fontWeight: '800', fontSize: 'lg', alignItems: 'center' })}>
+        <span className='flex items-center text-lg font-extrabold'>
           Github
           <DoorLeaveIcon />
         </span>
       </a>
 
-      <div
-        className={flex({
-          wrap: 'wrap',
-          fontSize: '0.7rem',
-          justify: 'center',
-          gap: '1rem',
-        })}
-      >
+      <div className='flex flex-wrap justify-center gap-4 text-[0.7rem]'>
         {Icons.map((icon) => {
           return (
             <div
               key={icon.name}
-              className={flex({
-                direction: 'column',
-                justify: 'start',
-                alignItems: 'center',
-                bg: 'neutral.200',
-                rounded: 'xl',
-                w: '6rem',
-                h: '7rem',
-                p: '1rem',
-                gap: '1rem',
-                whiteSpace: 'wrap',
-                wordBreak: 'break-word',
-                textAlign: 'center',
-              })}
+              className='flex h-28 w-24 flex-col items-center justify-start gap-4 rounded-xl bg-neutral-200 p-4 text-center whitespace-normal break-words'
             >
               <icon.icon />
               {icon.name}
@@ -61,17 +30,7 @@ export default function App() {
         })}
       </div>
 
-      <div
-        className={flex({
-          justify: 'center',
-          alignItems: 'center',
-          py: '4rem',
-          fontWeight: '800',
-          fontSize: 'md',
-        })}
-      >
-        presented by ichi0g0y
-      </div>
+      <div className='flex items-center justify-center py-16 text-base font-extrabold'>presented by ichi0g0y</div>
     </div>
   )
 }

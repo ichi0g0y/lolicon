@@ -2,11 +2,10 @@
 
 ## Development
 
-Install dependencies, generate Panda CSS output, and start the Vite dev server:
+Install dependencies and start the Vite dev server:
 
 ```sh
 bun install
-bun run build:panda
 bun run dev
 ```
 

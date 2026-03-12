@@ -1,18 +1,15 @@
 import { fileURLToPath, URL } from 'node:url'
-import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
       lolicon: fileURLToPath(new URL('../src/index.ts', import.meta.url)),
       '~': fileURLToPath(new URL('./app', import.meta.url)),
-      'styled-system': fileURLToPath(new URL('./styled-system', import.meta.url)),
     },
-  },
-  css: {
-    postcss: './postcss.config.cjs',
   },
   server: {
     fs: {
