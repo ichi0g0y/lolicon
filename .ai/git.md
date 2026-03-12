@@ -1,78 +1,79 @@
-# Gitコミットルール
+# Git Commit Rules
 
-## 🚨 絶対厳守: コミット制限
+## MANDATORY: Commit Restrictions
 
-- `/commit` / `/c` または `/commit!` / `/c!` の明示がない限り、コミットしない
-- 「OK」「進めて」「PR作って」「pushして」などの曖昧な指示ではコミットしない
-- ユーザー明示指示がない `git commit --amend` は実行しない
-- コミットに Claude 共著フッターを追加しない
-- コミット開始の条件は、ユーザー最新指示に `/commit` 系コマンドが明示されていること
-- `/commit` / `/commit!` の実行中に発生した確認への返答は、同一手順内の継続指示として扱う
+- Do not commit unless `/commit` / `/c` or `/commit!` / `/c!` is explicitly given
+- Do not commit on ambiguous instructions such as "OK", "go ahead", "create a PR", "push it"
+- Do not execute `git commit --amend` without explicit user instruction
+- Do not add Co-authored-by footer to commits
+- The condition to start a commit is that the user's latest instruction explicitly contains a `/commit`-series command
+- Responses to confirmations during `/commit` / `/commit!` execution are treated as continuation instructions within the same procedure
 
-## コミットメッセージフォーマット
+## Commit Message Format
 
-- 形式: `絵文字 scope: 説明`
-- 説明は日本語で簡潔に書く
-- scopeは変更対象に合わせて選ぶ（例: `docs` / `app` / `root`）
-- 絵文字リスト:
-  - `🐛 :bug:` バグ修正
-  - `🎈 :balloon:` 文字列変更や軽微な修正
-  - `👍 :+1:` 機能改善
-  - `✨ :sparkles:` 部分的な機能追加
-  - `🎉 :tada:` 盛大に祝うべき大きな機能追加
-  - `♻️ :recycle:` リファクタリング
-  - `🚿 :shower:` 不要な機能・使われなくなった機能の削除
-  - `💚 :green_heart:` テストやCIの修正・改善
-  - `👕 :shirt:` Lintエラーの修正やコードスタイルの修正
-  - `🚀 :rocket:` パフォーマンス改善
-  - `🆙 :up:` 依存パッケージなどのアップデート
-  - `🔒 :lock:` 新機能の公開範囲の制限
-  - `👮 :cop:` セキュリティ関連の改善
-  - `🔧 :wrench:` 設定関連変更
-  - `📝 :memo:` ドキュメントの整理
-  - `🚧 :construction:` 作業中
+- Format: `emoji scope: description`
+- Write the description concisely in Japanese
+- Choose the scope to match the change target (e.g., `docs` / `app` / `root`)
+- Emoji list:
+  - `🐛 :bug:` Bug fix
+  - `🎈 :balloon:` String change or minor fix
+  - `👍 :+1:` Feature improvement
+  - `✨ :sparkles:` Partial feature addition
+  - `🎉 :tada:` Major feature addition worth celebrating
+  - `♻️ :recycle:` Refactoring
+  - `🚿 :shower:` Removal of unused features
+  - `💚 :green_heart:` Test or CI fix/improvement
+  - `👕 :shirt:` Lint error fix or code style fix
+  - `🚀 :rocket:` Performance improvement
+  - `🆙 :up:` Dependency update
+  - `🔒 :lock:` Restricting scope of new features
+  - `👮 :cop:` Security-related improvement
+  - `🔧 :wrench:` Configuration change
+  - `📝 :memo:` Documentation cleanup
+  - `🚧 :construction:` Work in progress
 
-### 例
+### Examples
 
 - `✨ docs: 初期ガイドを追加`
 - `🐛 app: APIエラーハンドリングを修正`
 - `♻️ root: テンプレート構成を簡素化`
 
-## コミット運用（`/commit` / `/commit!`）
+## Commit Operations (`/commit` / `/commit!`)
 
-### トリガー
+### Triggers
 
 - `/commit` / `/c`
 - `/commit!` / `/c!`
 
-### 共通ルール
+### Common Rules
 
-- どちらも `git add -A` でステージングしてから処理する
-- ステージング実行前の可否はユーザーに確認しない
-- ステージ後に `git diff --cached --name-only` をユーザーに提示して対象ファイルを確認する
-- ステージ対象に意図しない変更がある場合は、コミット前にユーザーへ報告する
+- Both commands stage with `git add -A` before processing
+- Do not ask user permission before staging
+- After staging, show `git diff --cached --name-only` to the user to confirm target files
+- If staged changes include unintended modifications, report to the user before committing
 
-### ステージング
+### Staging
 
-1. `git add -A` を実行する
-2. `git diff --cached --name-only` を表示して対象を確認する
+1. Run `git add -A`
+2. Show `git diff --cached --name-only` to confirm targets
 
-### `/commit`（確認あり）
+### `/commit` (with confirmation)
 
-1. 変更内容に基づき、コミットメッセージ候補を3つ提示する
-2. ユーザーが選んだ候補でコミットする
+1. Present 3 commit message candidates based on the changes
+2. Commit with the candidate chosen by the user
 
-### `/commit!`（確認なし）
+### `/commit!` (without confirmation)
 
-1. 変更内容に基づき、コミットメッセージ候補を3つ生成する
-2. ステージ対象に意図しない変更がある場合は、コミット前に必ずユーザーへ報告し、同一手順内で継続可否を確認する
-3. 継続指示がある場合は、ユーザー確認なしで先頭候補を使って即コミットする
+1. Generate 3 commit message candidates based on the changes
+2. If staged changes include unintended modifications, report to the user before committing and confirm whether to continue within the same procedure
+3. If continuation is confirmed, commit immediately using the first candidate without user confirmation
 
-## PR運用
+## PR Operations
 
-- 1Issue 1PRを基本とする
-- 1PRの変更は小さく保ち、段階的に適用する
-- PRのbaseブランチは `main` とする
-- PR本文には対象Issueへの参照を記載する
-- `Closes` は作業対象のIssue番号を記載する（親Issue + サブIssue構成の場合はサブIssue番号を使う）
-- `Refs` は親Issueや関連Issueを記載し、共有ライブラリ変更時は相互Issueを明示する
+- Default to 1 Issue = 1 PR
+- Keep PR changes small and apply incrementally
+- PR base branch is `main`
+- If there are uncommitted changes when creating a PR, automatically perform the `/commit!` procedure (stage all, generate 3 candidates, commit with the first) before proceeding with PR creation
+- Reference the target Issue in the PR body
+- Use `Closes` with the working Issue number (use sub-Issue number for parent + sub-Issue structures)
+- Use `Refs` for parent Issues and related Issues; explicitly cross-reference when shared library changes are involved

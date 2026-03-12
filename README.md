@@ -4,40 +4,65 @@ lol, friendly, cute React iconset
 
 [docs](https://lolicon.ichi0g0y.io)
 
-## Usage
+## Install
 
 ```sh
 bun add lolicon
+```
+
+<details>
+<summary>Other package managers</summary>
+
+```sh
 pnpm add lolicon
 yarn add lolicon
 npm i lolicon
 ```
 
-### Individual Components (tree-shakeable)
+</details>
 
-```jsx
+## Usage
+
+### Individual Components
+
+```tsx
 import { TwitchIcon } from 'lolicon'
 
-export default () => (
-  <div style={{ color: 'magenta' }}>
-    <TwitchIcon size={32} />
-  </div>
-)
+export default () => <TwitchIcon size={32} />
+```
+
+Each icon is tree-shakeable — only the icons you import are included in your bundle.
+
+### Deep Imports
+
+For even more granular control, import from the icon's own entry point:
+
+```tsx
+import { EmailIcon } from 'lolicon/Email'
 ```
 
 ### Dynamic Icon Component
 
-```jsx
+Render icons by name at runtime:
+
+```tsx
 import { Icon } from 'lolicon'
 
-export default () => (
-  <div style={{ color: 'magenta' }}>
-    <Icon glyph="twitch" size={32} />
-  </div>
+export default ({ name }: { name: string }) => (
+  <Icon glyph={name} size={24} />
 )
 ```
 
-Built with/supports TypeScript.
+### Styling
+
+Icons use `currentColor` as fill, so you can style them with CSS:
+
+```tsx
+<TwitchIcon size={48} style={{ color: 'magenta' }} />
+<TwitchIcon size={48} className="text-purple-500" /> {/* Tailwind */}
+```
+
+`ref` forwarding is supported on all components.
 
 ### Props
 
@@ -56,12 +81,12 @@ Built with/supports TypeScript.
 | `size`  | Number or string | `32`    | Sets width & height    |
 | `...`   | `SVGProps`       |         | All SVG attributes     |
 
-### Deep Imports
+### TypeScript
 
-For optimal tree-shaking, you can import individual icons directly:
+All components are fully typed. `GlyphName` type is exported for use with the dynamic `<Icon />` component:
 
-```js
-import { EmailIcon } from 'lolicon/Email'
+```tsx
+import type { GlyphName } from 'lolicon'
 ```
 
 ## Credits

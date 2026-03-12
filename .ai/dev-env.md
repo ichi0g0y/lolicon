@@ -1,31 +1,31 @@
-# 開発環境ルール
+# Development Environment Rules
 
-## 基本方針
+## General Policy
 
-- 特定OS・特定パス前提の指示を避ける
-- ユーザーが起動中のプロセスは勝手に停止しない
-- AIが検証のために起動したプロセスは作業後に終了する
+- Avoid instructions that assume a specific OS or path
+- Do not stop processes that the user has running
+- Terminate processes started by AI for verification after the work is complete
 
-## 検証時
+## During Verification
 
-- 実行コマンドは再現可能な形で報告する
-- 長時間実行プロセスを残さない
-- 不要なビルド成果物を残さない
+- Report executed commands in a reproducible format
+- Do not leave long-running processes behind
+- Do not leave unnecessary build artifacts behind
 
-## ローカル設定
+## Local Settings
 
-- 個人環境固有パスはドキュメントに書かない
-- 秘密情報をリポジトリへ保存しない
+- Do not write environment-specific paths into documentation
+- Do not store secrets in the repository
 
-## ツール実行時の原則（Codex向け）
+## Tool Execution Principles (for Codex)
 
-- 最初に使おうとしたツールが見つからない場合は、インストールを提案する
-- `python` が見つからない場合は `python3` を試し、両方ない場合はインストールを提案する
+- If the first tool attempted is not found, suggest installation
+- If `python` is not found, try `python3`; if neither exists, suggest installation
 
-## GitHub操作
+## GitHub Operations
 
-- GitHub操作の手段は固定しない
-- GitHub REST API / GitHub GraphQL API など、環境に合う手段を選んでよい
-- 特定ラッパースクリプトの内部実装への依存を運用ルールとして固定しない
-- 認証切り替えが必要な環境では、CLIのログイン状態に依存せずAPIトークン利用を優先してよい
-- どの手段でも、Issue/PR/コメント/ラベルの結果が同等であることを優先する
+- Do not lock into specific GitHub operation methods
+- Use GitHub REST API / GitHub GraphQL API or any method that fits the environment
+- Do not depend on specific wrapper script internals as operational rules
+- In environments requiring auth switching, prefer API token usage over CLI login state
+- Prioritize equivalent results for Issues/PRs/comments/labels regardless of the method used

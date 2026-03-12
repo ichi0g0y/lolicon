@@ -1,40 +1,40 @@
-# レビュー
+# Review
 
-## 記述ルール
+## Writing Rules
 
-- 指摘にはファイルパス・行番号・根拠を必ず含める
-- 「どう直すか」より先に「なぜ問題か」を明確にする
-- レビュー結果は日本語で報告する
-- レビュー結果のIssueコメント自動投稿は行わない
-- 指摘共有は手動コピーまたは `.context/` 経由で行う
-- 問題なしの場合は、必要に応じてレビュー実施範囲と結果概要をIssueへ簡潔に記録してよい
-- ユーザーが履歴として残したい場合は、指摘有無にかかわらずIssueへ記録する
-- レビュー連携の手順は `.ai/workflow.md` を参照する
+- Always include file path, line number, and rationale in findings
+- Clarify "why it's a problem" before "how to fix it"
+- Report review results in Japanese
+- Do not auto-post review comments to Issues
+- Share findings via manual copy or `.context/`
+- When there are no issues, optionally record the review scope and result summary briefly in the Issue
+- If the user wants to preserve history, record in the Issue regardless of whether findings exist
+- Refer to `.ai/workflow.md` for review coordination procedures
 
-## 観点（優先順）
+## Review Perspectives (priority order)
 
-1. 正しさ
-2. 境界条件
-3. エラー処理
-4. 並行処理
-5. 状態管理
-6. 保守性
-7. 設計整合性
-8. テストカバレッジ
+1. Correctness
+2. Boundary conditions
+3. Error handling
+4. Concurrency
+5. State management
+6. Maintainability
+7. Design consistency
+8. Test coverage
 
-## 出力テンプレート
+## Output Template
 
 ```markdown
 ## Review Feedback
 
 - issue: #<issue-number>
-- summary: 修正が必要な指摘あり
+- summary: Findings that require fixes
 - findings:
   - id: F-01
     severity: High
     location: path/to/file.ext:123
-    issue: 問題の内容
-    reason: 問題となる技術的理由
-    impact: 想定される影響
-    decision: 採用 / 不採用 / 追加情報必要
+    issue: Description of the problem
+    reason: Technical reason why it's a problem
+    impact: Expected impact
+    decision: Accepted / Rejected / Needs More Information
 ```

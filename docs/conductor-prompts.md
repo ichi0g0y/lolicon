@@ -1,35 +1,36 @@
-# Conductor向けプロンプトテンプレート
+# Conductor Prompt Templates
 
-ConductorでCodex/Claudeに依頼するときの、人間向けテンプレート集です。
+A collection of human-facing templates for requesting work from Codex/Claude via Conductor.
 
-## review依頼時
+## Review Request
 
 ```text
-- レビュー運用の正は `.ai/review.md` と `.ai/workflow.md` を参照し、重複する指示がある場合はそちらを優先してください。
-- 対象Issue番号（例: `#9`）を明記してください。省略する場合は `.context/current_issue` を先に設定してください。
-- レビュー結果の報告は必ず日本語で記述してください。
-- 指摘ごとに `採用 / 不採用 / 追加情報必要` を明記してください。
-- 指摘にはファイルパス・行番号・根拠を含めてください。
-- 修正を行った場合は、実施したテスト内容と結果を最終報告に必ず記載してください。
-- レビュー指摘のIssueコメント自動投稿は行わず、必要なら手動コピー可能な形式で出力してください。
+- For review operations, refer to `.ai/review.md` and `.ai/workflow.md` as the source of truth. If there are overlapping instructions, those files take precedence.
+- Specify the target Issue number (e.g., `#9`). If omitting, set `.context/current_issue` first.
+- All review result reports must be written in Japanese.
+- Mark each finding as `Accepted / Rejected / Needs More Information`.
+- Include file path, line number, and rationale for each finding.
+- If fixes were made, include the tests performed and their results in the final report.
+- Do not auto-post review findings as Issue comments — output them in a format that can be manually copied if needed.
 ```
 
-## PR作成依頼時
+## PR Creation Request
 
 ```text
-- PR作成・コミット運用で重複するルールは `.ai/git.md` と `.ai/workflow.md` を参照し、そちらを優先してください。
-- PR作成に関する報告・提案・本文はすべて日本語で記述してください。
-- PRのbaseブランチは `main` にしてください。
-- PR本文は日本語で、以下の見出しを含めてください:
-  - 概要
-  - 変更内容
-  - テスト手順
-  - 影響範囲
-  - チェックリスト
-- `Closes` は作業対象のIssue番号を記載してください（親Issue + サブIssue構成の場合はサブIssue番号を使う）。
-- `Refs` は親Issueや関連Issueを記載してください。
-- PRマージ後、親Issueの全サブIssueがClose済みなら親Issueもクローズしてください。
-- 実行した確認コマンドと結果を本文に明記してください。
-- 未実施の検証がある場合は「未実施項目」と理由を明記してください。
-- 最終報告には、作成/更新したPRのURL（`pr_url`）を必ず記載してください。
+- For PR creation and commit operations, refer to `.ai/git.md` and `.ai/workflow.md` as the source of truth. If there are overlapping rules, those files take precedence.
+- If there are uncommitted changes, automatically perform the same procedure as `/commit!` (stage all with `git add -A`, generate 3 commit message candidates, and commit immediately with the first candidate) before creating the PR.
+- All reports, proposals, and PR body text must be written in Japanese.
+- Set the PR base branch to `main`.
+- Write the PR body in Japanese with the following headings:
+  - 概要 (Overview)
+  - 変更内容 (Changes)
+  - テスト手順 (Test Procedure)
+  - 影響範囲 (Impact Scope)
+  - チェックリスト (Checklist)
+- Use `Closes` with the working Issue number (use sub-Issue number for parent + sub-Issue structures).
+- Use `Refs` for parent Issues and related Issues.
+- After PR merge, if all sub-Issues of a parent Issue are closed, close the parent Issue as well.
+- Include the verification commands executed and their results in the PR body.
+- If any verifications were not performed, list them as "Unperformed Items" with reasons.
+- Always include the created/updated PR URL (`pr_url`) in the final report.
 ```

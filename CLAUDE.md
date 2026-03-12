@@ -1,18 +1,18 @@
 # CLAUDE.md
 
-対象: Claude Code
+Target: Claude Code
 
-## 最重要
+## Top Priority
 
-**Codex / Claude の共通運用は [`.ai/workflow.md`](.ai/workflow.md) を正とする。**
+**For Codex / Claude shared operations, [`.ai/workflow.md`](.ai/workflow.md) is the source of truth.**
 
-### コミット時の絶対禁止事項
+### Absolute Commit Prohibitions
 
-- `Co-Authored-By` / `Co-authored-by` フッターを **絶対に追加しない**（Claude Code のデフォルト動作を上書き）
-- コミットは `/commit` `/c` `/commit!` `/c!` の明示がない限り実行しない
-- 詳細は [`.ai/git.md`](.ai/git.md) を参照
+- **Never** add `Co-Authored-By` / `Co-authored-by` footer (overrides Claude Code default behavior)
+- Do not commit unless `/commit` `/c` `/commit!` `/c!` is explicitly given
+- See [`.ai/git.md`](.ai/git.md) for details
 
-## 必読ドキュメント
+## Required Reading
 
 - [`.ai/rules.md`](.ai/rules.md)
 - [`.ai/project.md`](.ai/project.md)
@@ -21,9 +21,9 @@
 - [`.ai/git.md`](.ai/git.md)
 - [`.ai/dev-env.md`](.ai/dev-env.md)
 
-## Claude Code 固有の補足
+## Claude Code Specific Notes
 
-- `/pick` 相当の指示やIssue番号の明示がなく、`current_issue` も未確定の依頼は、planモードでOpen Issue候補を優先度順に提示し、採用Issueをユーザー確認する
-- 対象Issue確定時は `.context/current_issue` にIssue番号を1行で書き出す
-- セッション開始時に `.context/current_issue` があれば対象Issueとして復元する
-- 対象PRがマージされ、Issue完了が確認できたら `.context/current_issue` を削除する
+- When no `/pick`-equivalent instruction, no explicit Issue number, and `current_issue` is unset, present Open Issue candidates in priority order in plan mode and confirm the chosen Issue with the user
+- When the target Issue is determined, write the Issue number as a single line to `.context/current_issue`
+- At session start, if `.context/current_issue` exists, restore it as the target Issue
+- When the target PR is merged and the Issue is confirmed complete, delete `.context/current_issue`

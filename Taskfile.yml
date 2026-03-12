@@ -54,6 +54,14 @@ tasks:
     dir: "{{.DOCS_DIR}}"
     cmd: bun run typecheck
 
+  # === パブリッシュ ===
+  publish:
+    desc: npmにパブリッシュ
+    cmds:
+      - echo "Publishing lolicon v$(node -p \"require('./package.json').version\")"
+      - bun run build
+      - npm publish
+
   # === 横断 ===
   lint:all:
     desc: 全プロジェクトをlint
