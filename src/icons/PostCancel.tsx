@@ -1,14 +1,30 @@
-import Icon, { IconProps } from '../Icon'
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
 
-export function PostCancelIcon({ size, className }: IconProps) {
-  return (
-    <Icon
-      label='PostCancel'
-      size={size}
-      className={className}
-      children={
-        <path d='M26,16.019c0,8 -2,10 -10,10c-8,0 -10,-2 -10,-10c0,-8 2,-10 10,-10c8,0 10,2 10,10Zm-8.586,-2.828c0.391,-0.39 1.024,-0.39 1.414,0c0.391,0.391 0.391,1.024 0,1.414l-1.414,1.414l1.414,1.414c0.39,0.391 0.391,1.024 0,1.415c-0.39,0.39 -1.024,0.39 -1.414,-0.001l-1.414,-1.413l-1.414,1.414c-0.391,0.39 -1.024,0.39 -1.414,0c-0.391,-0.391 -0.391,-1.024 0,-1.414l1.414,-1.415l-1.414,-1.413c-0.39,-0.391 -0.391,-1.024 0,-1.415c0.39,-0.39 1.024,-0.39 1.414,0.001l1.414,1.413l1.414,-1.414Z' />
-      }
-    />
-  )
+export interface PostCancelIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
 }
+
+export const PostCancelIcon = forwardRef<SVGSVGElement, PostCancelIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="PostCancel"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <path d="M26,16.019c0,8 -2,10 -10,10c-8,0 -10,-2 -10,-10c0,-8 2,-10 10,-10c8,0 10,2 10,10Zm-8.586,-2.828c0.391,-0.39 1.024,-0.39 1.414,0c0.391,0.391 0.391,1.024 0,1.414l-1.414,1.414l1.414,1.414c0.39,0.391 0.391,1.024 0,1.415c-0.39,0.39 -1.024,0.39 -1.414,-0.001l-1.414,-1.413l-1.414,1.414c-0.391,0.39 -1.024,0.39 -1.414,0c-0.391,-0.391 -0.391,-1.024 0,-1.414l1.414,-1.415l-1.414,-1.413c-0.39,-0.391 -0.391,-1.024 0,-1.415c0.39,-0.39 1.024,-0.39 1.414,0.001l1.414,1.413l1.414,-1.414Z" />
+    </svg>
+  ),
+)
+
+PostCancelIcon.displayName = 'PostCancelIcon'

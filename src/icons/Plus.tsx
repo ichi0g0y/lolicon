@@ -1,14 +1,30 @@
-import Icon, { IconProps } from '../Icon'
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
 
-export function PlusIcon({ size, className }: IconProps) {
-  return (
-    <Icon
-      label='Plus'
-      size={size}
-      className={className}
-      children={
-        <path d='M16,6c5.1,0 7.247,0.575 8.336,1.664c1.089,1.089 1.664,3.236 1.664,8.336c0,5.1 -0.575,7.247 -1.664,8.336c-1.089,1.089 -3.236,1.664 -8.336,1.664c-5.1,0 -7.247,-0.575 -8.336,-1.664c-1.089,-1.089 -1.664,-3.236 -1.664,-8.336c0,-5.1 0.575,-7.247 1.664,-8.336c1.089,-1.089 3.236,-1.664 8.336,-1.664Zm0,-2c10,0 12,2 12,12c0,10 -2,12 -12,12c-10,0 -12,-2 -12,-12c0,-10 2,-12 12,-12Zm-1,8c0,-0.552 0.448,-1 1,-1c0.552,0 1,0.448 1,1l0,3l3,0c0.552,0 1,0.448 1,1c0,0.552 -0.448,1 -1,1l-3,0l0,3c0,0.552 -0.448,1 -1,1c-0.552,0 -1,-0.448 -1,-1l0,-3l-3,0c-0.552,0 -1,-0.448 -1,-1c0,-0.552 0.448,-1 1,-1l3,0l0,-3Z' />
-      }
-    />
-  )
+export interface PlusIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
 }
+
+export const PlusIcon = forwardRef<SVGSVGElement, PlusIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Plus"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <path d="M16,6c5.1,0 7.247,0.575 8.336,1.664c1.089,1.089 1.664,3.236 1.664,8.336c0,5.1 -0.575,7.247 -1.664,8.336c-1.089,1.089 -3.236,1.664 -8.336,1.664c-5.1,0 -7.247,-0.575 -8.336,-1.664c-1.089,-1.089 -1.664,-3.236 -1.664,-8.336c0,-5.1 0.575,-7.247 1.664,-8.336c1.089,-1.089 3.236,-1.664 8.336,-1.664Zm0,-2c10,0 12,2 12,12c0,10 -2,12 -12,12c-10,0 -12,-2 -12,-12c0,-10 2,-12 12,-12Zm-1,8c0,-0.552 0.448,-1 1,-1c0.552,0 1,0.448 1,1l0,3l3,0c0.552,0 1,0.448 1,1c0,0.552 -0.448,1 -1,1l-3,0l0,3c0,0.552 -0.448,1 -1,1c-0.552,0 -1,-0.448 -1,-1l0,-3l-3,0c-0.552,0 -1,-0.448 -1,-1c0,-0.552 0.448,-1 1,-1l3,0l0,-3Z" />
+    </svg>
+  ),
+)
+
+PlusIcon.displayName = 'PlusIcon'

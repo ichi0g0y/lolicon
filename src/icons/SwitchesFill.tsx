@@ -1,0 +1,33 @@
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
+
+export interface SwitchesFillIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
+}
+
+export const SwitchesFillIcon = forwardRef<SVGSVGElement, SwitchesFillIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="SwitchesFill"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <>
+            <path d="M28 9C28 5.68629 25.3137 3 22 3H10C6.68629 3 4 5.68629 4 9C4 12.3137 6.68629 15 10 15H22C25.3137 15 28 12.3137 28 9ZM10 12.5C8.067 12.5 6.5 10.933 6.5 9C6.5 7.067 8.067 5.5 10 5.5C11.933 5.5 13.5 7.067 13.5 9C13.5 10.933 11.933 12.5 10 12.5Z" />
+            <path d="M4 23C4 19.6863 6.68629 17 10 17H22C25.3137 17 28 19.6863 28 23C28 26.3137 25.3137 29 22 29H10C6.68629 29 4 26.3137 4 23ZM22 26.5C23.933 26.5 25.5 24.933 25.5 23C25.5 21.067 23.933 19.5 22 19.5C20.067 19.5 18.5 21.067 18.5 23C18.5 24.933 20.067 26.5 22 26.5Z" />
+          </>
+    </svg>
+  ),
+)
+
+SwitchesFillIcon.displayName = 'SwitchesFillIcon'

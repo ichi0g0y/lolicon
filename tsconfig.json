@@ -20,5 +20,5 @@
     "target": "ESNext",
     "skipLibCheck": true
   },
-  "include": ["vite.config.ts", "src/**/*.ts", "src/**/*.tsx"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

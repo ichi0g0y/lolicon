@@ -1,17 +1,33 @@
-import Icon, { IconProps } from '../Icon'
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
 
-export function EventCancelIcon({ size, className }: IconProps) {
-  return (
-    <Icon
-      label='EventCancel'
-      size={size}
-      className={className}
-      children={
-        <g>
-          <path d='M28 16C28 6 26 4 16 4S4 6 4 16s2 12 12 12 12-2 12-12zm-3.664 8.336C25.425 23.247 26 21.1 26 16c0-2.14-.102-3.76-.3-5H6.3c-.198 1.24-.3 2.86-.3 5 0 5.1.576 7.247 1.665 8.336C8.753 25.425 10.9 26 16 26s7.247-.575 8.336-1.664zM11 8a1 1 0 0 1 1-1h8a1 1 0 0 1 0 2h-8a1 1 0 0 1-1-1z' />
-          <path d='M13.171 17.086a1 1 0 0 1 1.414-1.414L16 17.086l1.414-1.414a1.001 1.001 0 0 1 1.414 1.414L17.414 18.5l1.414 1.414a1 1 0 0 1-1.414 1.414L16 19.914l-1.413 1.414a1.001 1.001 0 0 1-1.414-1.414l1.413-1.414-1.414-1.414z' />
-        </g>
-      }
-    />
-  )
+export interface EventCancelIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
 }
+
+export const EventCancelIcon = forwardRef<SVGSVGElement, EventCancelIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="EventCancel"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <>
+            <path d="M28 16C28 6 26 4 16 4S4 6 4 16s2 12 12 12 12-2 12-12zm-3.664 8.336C25.425 23.247 26 21.1 26 16c0-2.14-.102-3.76-.3-5H6.3c-.198 1.24-.3 2.86-.3 5 0 5.1.576 7.247 1.665 8.336C8.753 25.425 10.9 26 16 26s7.247-.575 8.336-1.664zM11 8a1 1 0 0 1 1-1h8a1 1 0 0 1 0 2h-8a1 1 0 0 1-1-1z" />
+            <path d="M13.171 17.086a1 1 0 0 1 1.414-1.414L16 17.086l1.414-1.414a1.001 1.001 0 0 1 1.414 1.414L17.414 18.5l1.414 1.414a1 1 0 0 1-1.414 1.414L16 19.914l-1.413 1.414a1.001 1.001 0 0 1-1.414-1.414l1.413-1.414-1.414-1.414z" />
+          </>
+    </svg>
+  ),
+)
+
+EventCancelIcon.displayName = 'EventCancelIcon'

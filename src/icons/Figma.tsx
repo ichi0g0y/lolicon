@@ -1,17 +1,33 @@
-import Icon, { IconProps } from '../Icon'
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
 
-export function FigmaIcon({ size, className }: IconProps) {
-  return (
-    <Icon
-      label='Figma'
-      size={size}
-      className={className}
-      children={
-        <g>
-          <path d='M16 6c5.1 0 7.247.576 8.336 1.665C25.425 8.754 26 10.9 26 16c0 5.1-.575 7.247-1.664 8.336C23.247 25.425 21.1 26 16 26s-7.247-.575-8.336-1.664C6.575 23.247 6 21.1 6 16s.575-7.247 1.664-8.335C8.753 6.576 10.9 6 16 6zm12 10C28 6 26 4 16 4S4 6 4 16s2 12 12 12 12-2 12-12z' />
-          <path d='M15.993 16a2.667 2.667 0 115.334 0 2.667 2.667 0 01-5.334 0zm-5.333 5.333a2.667 2.667 0 012.667-2.666h2.666v2.666a2.667 2.667 0 11-5.333 0zM15.993 8v5.333h2.667a2.667 2.667 0 100-5.333h-2.667zm-5.333 2.667a2.667 2.667 0 002.667 2.666h2.666V8h-2.666a2.666 2.666 0 00-2.667 2.667zm0 5.333a2.667 2.667 0 002.667 2.667h2.666v-5.334h-2.666A2.666 2.666 0 0010.66 16z' />
-        </g>
-      }
-    />
-  )
+export interface FigmaIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
 }
+
+export const FigmaIcon = forwardRef<SVGSVGElement, FigmaIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Figma"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <>
+            <path d="M16 6c5.1 0 7.247.576 8.336 1.665C25.425 8.754 26 10.9 26 16c0 5.1-.575 7.247-1.664 8.336C23.247 25.425 21.1 26 16 26s-7.247-.575-8.336-1.664C6.575 23.247 6 21.1 6 16s.575-7.247 1.664-8.335C8.753 6.576 10.9 6 16 6zm12 10C28 6 26 4 16 4S4 6 4 16s2 12 12 12 12-2 12-12z" />
+            <path d="M15.993 16a2.667 2.667 0 115.334 0 2.667 2.667 0 01-5.334 0zm-5.333 5.333a2.667 2.667 0 012.667-2.666h2.666v2.666a2.667 2.667 0 11-5.333 0zM15.993 8v5.333h2.667a2.667 2.667 0 100-5.333h-2.667zm-5.333 2.667a2.667 2.667 0 002.667 2.666h2.666V8h-2.666a2.666 2.666 0 00-2.667 2.667zm0 5.333a2.667 2.667 0 002.667 2.667h2.666v-5.334h-2.666A2.666 2.666 0 0010.66 16z" />
+          </>
+    </svg>
+  ),
+)
+
+FigmaIcon.displayName = 'FigmaIcon'

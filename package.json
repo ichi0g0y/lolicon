@@ -1,6 +1,6 @@
 {
   "name": "lolicon",
-  "version": "0.0.18",
+  "version": "0.1.0",
   "description": "Cute React Iconset",
   "keywords": [
     "react",
@@ -10,38 +10,39 @@
   "bugs": "https://github.com/ichi0g0y/lolicon/issues",
   "homepage": "https://github.com/ichi0g0y/lolicon#readme",
   "author": "ichi0g0y",
+  "sideEffects": false,
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "require": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/icons/*.d.ts",
+      "import": "./dist/icons/*.mjs",
+      "require": "./dist/icons/*.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "./dist/index.cjs",
+  "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "vite build && tsc -p tsconfig.build.json",
-    "format": "pnpm dlx sort-package-json && pnpm dlx sort-compiler-options && pnpm dlx sort-compiler-options -c tsconfig.build.json && pnpm dlx prettier --write './**/*.{ts,tsx}' 'tsconfig*.json'",
+    "generate": "node scripts/migrate.mjs",
+    "build": "tsdown && tsc -p tsconfig.build.json",
+    "format": "bunx sort-package-json && bunx sort-compiler-options && bunx sort-compiler-options -c tsconfig.build.json && bunx prettier --write './**/*.{ts,tsx}' 'tsconfig*.json'",
     "lint": "eslint ./src/*",
-    "prepublish": "pnpm build"
+    "prepublish": "bun run build"
   },
   "prettier": "prettier-config-ichi0g0y",
   "devDependencies": {
     "@types/react": "^18.2.46",
-    "@vitejs/plugin-react": "^4.2.1",
     "eslint": "^8.53.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-import": "^2.29.0",
     "prettier-config-ichi0g0y": "^0.1.2",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-visualizer": "^5.12.0",
-    "typescript": "^5.0.4",
-    "vite": "^4.3.9",
-    "vite-plugin-no-bundle": "^3.0.0"
+    "tsdown": "^0.12.2",
+    "typescript": "^5.0.4"
   },
   "publishConfig": {
     "access": "public"
