@@ -1,0 +1,30 @@
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
+
+export interface CreditCardForbiddenIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
+}
+
+export const CreditCardForbiddenIcon = forwardRef<SVGSVGElement, CreditCardForbiddenIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="CreditCardForbidden"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <path d="M6 16C6 18.256 6.05 19.836 6.291 21.048C6.507 22.158 6.824 22.625 7.155 22.901C7.539 23.221 8.249 23.542 9.752 23.744C11.283 23.954 13.274 24 16 24C18.3237 24 20.1145 23.9665 21.5408 23.8265C21.5139 24.0472 21.5 24.272 21.5 24.5C21.5 24.9562 21.5555 25.3993 21.6602 25.8232C20.1542 25.9638 18.2947 26 16 26C5 26 4 25.167 4 16C4 6.833 5 6 16 6C27 6 28 6.833 28 16C28 17.1533 27.9842 18.1747 27.9346 19.0791C27.6308 19.0271 27.3186 19 27 19C26.6355 19 26.2793 19.0355 25.9346 19.1031C25.9855 18.2325 26 17.2142 26 16C26 15.6509 25.9988 15.3179 25.9959 15H6.00412C6.0012 15.3179 6 15.6509 6 16ZM25.709 10.952L25.7184 11H6.28159L6.291 10.952C6.507 9.842 6.824 9.375 7.155 9.099C7.539 8.779 8.249 8.458 9.752 8.255C11.283 8.046 13.274 8 16 8C18.725 8 20.717 8.046 22.248 8.255C23.751 8.458 24.461 8.779 24.845 9.099C25.176 9.375 25.493 9.842 25.709 10.952ZM29.1213 26.6213C30.1098 25.6329 30.2643 24.1263 29.5848 22.9758L25.4758 27.0848C26.6263 27.7643 28.1329 27.6098 29.1213 26.6213ZM24.4152 26.0242L28.5242 21.9152C27.3737 21.2357 25.8671 21.3902 24.8787 22.3787C23.8902 23.3671 23.7357 24.8737 24.4152 26.0242ZM30.182 27.682C31.9393 25.9246 31.9393 23.0754 30.182 21.318C28.4246 19.5607 25.5754 19.5607 23.818 21.318C22.0607 23.0754 22.0607 25.9246 23.818 27.682C25.5754 29.4393 28.4246 29.4393 30.182 27.682Z" />
+    </svg>
+  ),
+)
+
+CreditCardForbiddenIcon.displayName = 'CreditCardForbiddenIcon'

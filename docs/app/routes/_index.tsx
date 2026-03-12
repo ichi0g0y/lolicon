@@ -43,6 +43,7 @@ export default function Index() {
         {Icons.map((icon) => {
           return (
             <div
+              key={icon.name}
               className={flex({
                 direction: 'column',
                 justify: 'start',

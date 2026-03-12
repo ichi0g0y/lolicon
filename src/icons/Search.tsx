@@ -1,14 +1,30 @@
-import Icon, { IconProps } from '../Icon'
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
 
-export function SearchIcon({ size, className }: IconProps) {
-  return (
-    <Icon
-      label='Search'
-      size={size}
-      className={className}
-      children={
-        <path d='M14,9c-2.761,0 -5,2.239 -5,5c0,2.761 2.239,5 5,5c1.387,0 2.641,-0.564 3.548,-1.477c0.899,-0.905 1.452,-2.148 1.452,-3.523c0,-2.761 -2.239,-5 -5,-5Zm-7,5c0,-3.866 3.134,-7 7,-7c3.866,0 7,3.134 7,7c0,1.257 -0.332,2.436 -0.912,3.456c-0.244,0.431 -0.212,0.981 0.137,1.332l3.984,4.007c0.389,0.391 0.388,1.025 -0.004,1.414c-0.392,0.389 -1.025,0.388 -1.414,-0.004l-3.97,-3.992c-0.352,-0.354 -0.908,-0.387 -1.341,-0.138c-1.025,0.588 -2.214,0.925 -3.48,0.925c-3.866,0 -7,-3.134 -7,-7Z' />
-      }
-    />
-  )
+export interface SearchIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
 }
+
+export const SearchIcon = forwardRef<SVGSVGElement, SearchIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="Search"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <path d="M14,9c-2.761,0 -5,2.239 -5,5c0,2.761 2.239,5 5,5c1.387,0 2.641,-0.564 3.548,-1.477c0.899,-0.905 1.452,-2.148 1.452,-3.523c0,-2.761 -2.239,-5 -5,-5Zm-7,5c0,-3.866 3.134,-7 7,-7c3.866,0 7,3.134 7,7c0,1.257 -0.332,2.436 -0.912,3.456c-0.244,0.431 -0.212,0.981 0.137,1.332l3.984,4.007c0.389,0.391 0.388,1.025 -0.004,1.414c-0.392,0.389 -1.025,0.388 -1.414,-0.004l-3.97,-3.992c-0.352,-0.354 -0.908,-0.387 -1.341,-0.138c-1.025,0.588 -2.214,0.925 -3.48,0.925c-3.866,0 -7,-3.134 -7,-7Z" />
+    </svg>
+  ),
+)
+
+SearchIcon.displayName = 'SearchIcon'

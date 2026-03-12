@@ -1,17 +1,33 @@
-import Icon, { IconProps } from '../Icon'
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
 
-export function PinFillIcon({ size, className }: IconProps) {
-  return (
-    <Icon
-      label='PinFill'
-      size={size}
-      className={className}
-      children={
-        <g>
-          <path d='M7.993,14.15c-0.391,0.39 -0.391,1.023 0,1.414c0.39,0.39 1.024,0.39 1.414,0l0.504,-0.504l4.586,6.549c0.024,0.035 0.051,0.069 0.079,0.1l-0.219,0.219c-0.391,0.39 -0.391,1.024 0,1.414c0.39,0.391 1.024,0.391 1.414,0l7.071,-7.071c0.391,-0.39 0.391,-1.024 0,-1.414c-0.39,-0.391 -1.024,-0.391 -1.414,0l-0.212,0.212l-6.654,-4.66l0.502,-0.502c0.39,-0.39 0.39,-1.024 0,-1.414c-0.391,-0.391 -1.024,-0.391 -1.414,0l-5.657,5.657Z' />
-          <path d='M19.307,21.221l1.414,-1.414l3.536,3.535c0.39,0.391 0.39,1.024 0,1.415c-0.391,0.39 -1.024,0.39 -1.414,0l-3.536,-3.536Z' />
-        </g>
-      }
-    />
-  )
+export interface PinFillIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
 }
+
+export const PinFillIcon = forwardRef<SVGSVGElement, PinFillIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="PinFill"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <>
+            <path d="M7.993,14.15c-0.391,0.39 -0.391,1.023 0,1.414c0.39,0.39 1.024,0.39 1.414,0l0.504,-0.504l4.586,6.549c0.024,0.035 0.051,0.069 0.079,0.1l-0.219,0.219c-0.391,0.39 -0.391,1.024 0,1.414c0.39,0.391 1.024,0.391 1.414,0l7.071,-7.071c0.391,-0.39 0.391,-1.024 0,-1.414c-0.39,-0.391 -1.024,-0.391 -1.414,0l-0.212,0.212l-6.654,-4.66l0.502,-0.502c0.39,-0.39 0.39,-1.024 0,-1.414c-0.391,-0.391 -1.024,-0.391 -1.414,0l-5.657,5.657Z" />
+            <path d="M19.307,21.221l1.414,-1.414l3.536,3.535c0.39,0.391 0.39,1.024 0,1.415c-0.391,0.39 -1.024,0.39 -1.414,0l-3.536,-3.536Z" />
+          </>
+    </svg>
+  ),
+)
+
+PinFillIcon.displayName = 'PinFillIcon'

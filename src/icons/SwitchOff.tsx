@@ -1,0 +1,33 @@
+import { forwardRef } from 'react'
+import type { SVGProps } from 'react'
+
+export interface SwitchOffIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
+}
+
+export const SwitchOffIcon = forwardRef<SVGSVGElement, SwitchOffIconProps>(
+  ({ size = 32, ...props }, ref) => (
+    <svg
+      ref={ref}
+      fillRule="evenodd"
+      clipRule="evenodd"
+      strokeLinejoin="round"
+      strokeMiterlimit={1.414}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-label="SwitchOff"
+      viewBox="0 0 32 32"
+      preserveAspectRatio="xMidYMid meet"
+      fill="currentColor"
+      width={size}
+      height={size}
+      {...props}
+    >
+      <>
+            <path d="M22 12H10C7.79086 12 6 13.7909 6 16C6 18.2091 7.79086 20 10 20H22C24.2091 20 26 18.2091 26 16C26 13.7909 24.2091 12 22 12ZM10 10C6.68629 10 4 12.6863 4 16C4 19.3137 6.68629 22 10 22H22C25.3137 22 28 19.3137 28 16C28 12.6863 25.3137 10 22 10H10Z" />
+            <circle cx="10" cy="16" r="3" />
+          </>
+    </svg>
+  ),
+)
+
+SwitchOffIcon.displayName = 'SwitchOffIcon'
