@@ -1,5 +1,39 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Catppuccin Latte (light) */
+  --color-ctp-l-base: #eff1f5;
+  --color-ctp-l-mantle: #e6e9ef;
+  --color-ctp-l-crust: #dce0e8;
+  --color-ctp-l-surface0: #ccd0da;
+  --color-ctp-l-surface1: #bcc0cc;
+  --color-ctp-l-surface2: #acb0be;
+  --color-ctp-l-overlay0: #9ca0b0;
+  --color-ctp-l-text: #4c4f69;
+  --color-ctp-l-subtext0: #6c6f85;
+  --color-ctp-l-subtext1: #5c5f77;
+  --color-ctp-l-green: #40a02b;
+  --color-ctp-l-lavender: #7287fd;
+  --color-ctp-l-blue: #1e66f5;
+
+  /* Catppuccin Macchiato (dark) */
+  --color-ctp-base: #24273a;
+  --color-ctp-mantle: #1e2030;
+  --color-ctp-crust: #181926;
+  --color-ctp-surface0: #363a4f;
+  --color-ctp-surface1: #494d64;
+  --color-ctp-surface2: #5b6078;
+  --color-ctp-overlay0: #6e738d;
+  --color-ctp-text: #cad3f5;
+  --color-ctp-subtext0: #a5adcb;
+  --color-ctp-subtext1: #b8c0e0;
+  --color-ctp-green: #a6da95;
+  --color-ctp-lavender: #b7bdf8;
+  --color-ctp-blue: #8aadf4;
+}
+
 html,
 body,
 #root {
@@ -8,7 +42,12 @@ body,
 
 body {
   margin: 0;
-  background-color: rgb(245 245 245);
-  color: rgb(38 38 38);
+  background-color: var(--color-ctp-l-base);
+  color: var(--color-ctp-l-text);
   font-family: "Murecho Variable", sans-serif;
+}
+
+html.dark body {
+  background-color: var(--color-ctp-base);
+  color: var(--color-ctp-text);
 }

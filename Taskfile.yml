@@ -1,0 +1,64 @@
+version: "3"
+
+vars:
+  DOCS_DIR: docs
+
+tasks:
+  # === セットアップ ===
+  setup:
+    desc: 依存関係をインストール
+    cmds:
+      - bun install
+      - cd {{.DOCS_DIR}} && bun install
+
+  # === ライブラリ ===
+  generate:
+    desc: アイコンコードを自動生成
+    cmd: node scripts/migrate.mjs
+
+  build:
+    desc: ライブラリをビルド
+    cmd: bun run build
+
+  lint:
+    desc: ライブラリをlint
+    cmd: bun run lint
+
+  format:
+    desc: コードをフォーマット
+    cmd: bun run format
+
+  # === ドキュメント ===
+  docs:dev:
+    desc: ドキュメントサイトの開発サーバーを起動
+    dir: "{{.DOCS_DIR}}"
+    cmd: bun run dev
+
+  docs:build:
+    desc: ドキュメントサイトをビルド
+    dir: "{{.DOCS_DIR}}"
+    cmd: bun run build
+
+  docs:preview:
+    desc: ドキュメントサイトをプレビュー
+    dir: "{{.DOCS_DIR}}"
+    cmd: bun run preview
+
+  docs:lint:
+    desc: ドキュメントサイトをlint
+    dir: "{{.DOCS_DIR}}"
+    cmd: bun run lint
+
+  docs:typecheck:
+    desc: ドキュメントサイトの型チェック
+    dir: "{{.DOCS_DIR}}"
+    cmd: bun run typecheck
+
+  # === 横断 ===
+  lint:all:
+    desc: 全プロジェクトをlint
+    deps: [lint, docs:lint]
+
+  check:
+    desc: lint + 型チェックを一括実行
+    deps: [lint:all, docs:typecheck]
