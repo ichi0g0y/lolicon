@@ -6,6 +6,12 @@
 
 **Codex / Claude の共通運用は [`.ai/workflow.md`](.ai/workflow.md) を正とする。**
 
+### コミット時の絶対禁止事項
+
+- `Co-Authored-By` / `Co-authored-by` フッターを **絶対に追加しない**（Claude Code のデフォルト動作を上書き）
+- コミットは `/commit` `/c` `/commit!` `/c!` の明示がない限り実行しない
+- 詳細は [`.ai/git.md`](.ai/git.md) を参照
+
 ## 必読ドキュメント
 
 - [`.ai/rules.md`](.ai/rules.md)

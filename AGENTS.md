@@ -6,6 +6,12 @@
 
 **Codex / Claude の共通運用は [`.ai/workflow.md`](.ai/workflow.md) を正とする。**
 
+### コミット時の絶対禁止事項
+
+- `Co-Authored-By` / `Co-authored-by` フッターを **絶対に追加しない**
+- コミットは `/commit` `/c` `/commit!` `/c!` の明示がない限り実行しない
+- 詳細は [`.ai/git.md`](.ai/git.md) を参照
+
 - 役割は固定しない（どちらも計画・実装・テスト・レビューを実行可能）
 - 修正内容・進行状況・手順書・計画・レビュー観点は GitHub Issues に集約し、Issue単位worktree + 小PRで進める
 - レビュー結果は自動投稿せず、必要に応じて手動コピーまたは `.context/` 経由で共有する
