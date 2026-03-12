@@ -1,22 +1,24 @@
-# Welcome to Remix!
-
-- [Remix Docs](https://remix.run/docs)
+# docs
 
 ## Development
 
-You will be utilizing Wrangler for local development to emulate the Cloudflare runtime. This is already wired up in your package.json as the `dev` script:
+Install dependencies, generate Panda CSS output, and start the Vite dev server:
 
 ```sh
-# start the remix dev server and wrangler
-npm run dev
+bun install
+bun run build:panda
+bun run dev
 ```
 
-Open up [http://127.0.0.1:8788](http://127.0.0.1:8788) and you should be ready to go!
+Open [http://127.0.0.1:5173](http://127.0.0.1:5173) in your browser.
 
 ## Deployment
 
-Cloudflare Pages are currently only deployable through their Git provider integrations.
+Build the static site with Vite:
 
-If you don't already have an account, then [create a Cloudflare account here](https://dash.cloudflare.com/sign-up/pages) and after verifying your email address with Cloudflare, go to your dashboard and follow the [Cloudflare Pages deployment guide](https://developers.cloudflare.com/pages/framework-guides/deploy-anything).
+```sh
+bun run build
+bun run preview
+```
 
-Configure the "Build command" should be set to `npm run build`, and the "Build output directory" should be set to `public`.
+The production output is written to `dist/`. If you deploy with Cloudflare Pages, use `bun run build` as the build command and `dist` as the output directory.

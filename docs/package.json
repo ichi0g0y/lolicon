@@ -4,32 +4,25 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev --manual -c \"bun run start\"",
+    "build": "vite build",
+    "dev": "vite",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "./scripts/wrangler-node22.sh pages dev --compatibility-date=2023-06-21 ./public",
     "build:panda": "panda codegen --clean",
     "prepare": "panda codegen --clean",
-    "typecheck": "tsc",
-    "pages:deploy": "bun run build && ./scripts/wrangler-node22.sh pages deploy --project-name lolicon ./public"
+    "preview": "vite preview",
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@fontsource-variable/murecho": "^5.0.17",
-    "@remix-run/cloudflare": "^2.4.0",
-    "@remix-run/cloudflare-pages": "^2.4.0",
-    "@remix-run/css-bundle": "^2.4.0",
-    "@remix-run/react": "^2.4.0",
-    "isbot": "^3.6.8",
     "lolicon": "file:..",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230518.0",
     "@pandacss/dev": "^0.23.0",
     "@pandacss/preset-panda": "^0.23.0",
     "@pandacss/types": "^0.23.0",
-    "@remix-run/dev": "^2.4.0",
+    "@vitejs/plugin-react": "^4.4.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
@@ -40,17 +33,10 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "miniflare": "4.20260310.0",
     "typescript": "^5.1.0",
-    "workerd": "1.20260310.1",
-    "ws": "8.18.0",
-    "wrangler": "^4.72.0"
+    "vite": "^6.2.2"
   },
   "engines": {
     "node": ">=18.0.0"
-  },
-  "trustedDependencies": [
-    "esbuild",
-    "workerd"
-  ]
+  }
 }

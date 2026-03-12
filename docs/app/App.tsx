@@ -1,14 +1,9 @@
-import type { MetaFunction } from '@remix-run/cloudflare'
 import { DoorLeaveIcon } from 'lolicon'
 import { css } from 'styled-system/css'
 import { flex } from 'styled-system/patterns'
 import { Icons } from '~/datas/icons'
 
-export const meta: MetaFunction = () => {
-  return [{ title: 'LOLICON' }, { name: 'description', content: 'Welcome to Remix!' }]
-}
-
-export default function Index() {
+export default function App() {
   return (
     <div
       className={flex({
