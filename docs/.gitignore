@@ -2,9 +2,5 @@ node_modules
 styled-system
 
 /.cache
-/functions/\[\[path\]\].js
-/functions/\[\[path\]\].js.map
-/functions/metafile.*
-/functions/version.txt
-/public/build
+/dist
 .dev.vars

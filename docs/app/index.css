@@ -1,1 +1,14 @@
-@layer reset, base, tokens, recipes, utilities;
+@import "tailwindcss";
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: rgb(245 245 245);
+  color: rgb(38 38 38);
+  font-family: "Murecho Variable", sans-serif;
+}
