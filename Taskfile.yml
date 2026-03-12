@@ -57,8 +57,11 @@ tasks:
   # === パブリッシュ ===
   publish:
     desc: npmにパブリッシュ
+    vars:
+      VERSION:
+        sh: node -p "require('./package.json').version"
     cmds:
-      - echo "Publishing lolicon v$(node -p \"require('./package.json').version\")"
+      - echo "Publishing lolicon v{{.VERSION}}"
       - bun run build
       - npm publish
 
