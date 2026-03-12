@@ -1,9 +1,13 @@
-.turbo
 node_modules
 src
 docs
-test
+original
+scripts
+.context
 .eslintrc.js
+eslint.config.js
 tsconfig.json
 tsconfig.build.json
-vite.config.js
+tsdown.config.ts
+bun.lockb
+.turbo
