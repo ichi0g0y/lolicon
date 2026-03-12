@@ -73,6 +73,7 @@
 - Default to 1 Issue = 1 PR
 - Keep PR changes small and apply incrementally
 - PR base branch is `main`
+- If there are uncommitted changes when creating a PR, automatically perform the `/commit!` procedure (stage all, generate 3 candidates, commit with the first) before proceeding with PR creation
 - Reference the target Issue in the PR body
 - Use `Closes` with the working Issue number (use sub-Issue number for parent + sub-Issue structures)
 - Use `Refs` for parent Issues and related Issues; explicitly cross-reference when shared library changes are involved

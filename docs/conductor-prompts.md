@@ -18,6 +18,7 @@ A collection of human-facing templates for requesting work from Codex/Claude via
 
 ```text
 - For PR creation and commit operations, refer to `.ai/git.md` and `.ai/workflow.md` as the source of truth. If there are overlapping rules, those files take precedence.
+- If there are uncommitted changes, automatically perform the same procedure as `/commit!` (stage all with `git add -A`, generate 3 commit message candidates, and commit immediately with the first candidate) before creating the PR.
 - All reports, proposals, and PR body text must be written in Japanese.
 - Set the PR base branch to `main`.
 - Write the PR body in Japanese with the following headings:
