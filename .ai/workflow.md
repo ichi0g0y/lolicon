@@ -1,100 +1,100 @@
-# ワークフロー
+# Workflow
 
-## AI協調フロー
+## AI Collaboration Flow
 
-- ユーザー指示の目的を最優先にする
-- Codex / Claude の役割は固定しない
-- レビュー作成側か指摘対応側かを、ターンごとに判断する
-- 修正内容・進行状況・手順書・計画・レビュー観点は GitHub Issues に集約する
-- GitHub操作手段は固定しない（REST API / GraphQL API など、環境に合う手段を選ぶ）
-- 状態管理は GitHub Issue のラベル + Close で運用する
-- 1 Issue 1 worktree を基本とし、強く関連する作業のみ同一worktreeで扱う
-- PR は小さく分割して順次マージする
-- 既存の未コミット変更があっても、Issue定義の作成とIssue番号の確定は通常どおり進める
+- Prioritize the purpose of the user's instruction above all else
+- Roles of Codex / Claude are not fixed
+- Determine per turn whether to act as reviewer or respondent to review feedback
+- Consolidate changes, progress, procedures, plans, and review perspectives in GitHub Issues
+- Do not lock into specific GitHub operation methods (REST API / GraphQL API — choose what fits the environment)
+- Manage state via GitHub Issue labels + Close status
+- Default to 1 Issue per worktree; only handle closely related work in the same worktree
+- Keep PRs small and merge incrementally
+- Proceed with Issue definition creation and Issue number assignment even when uncommitted changes exist
 
-## Issue状態とラベル
+## Issue State and Labels
 
-- `Open`: 未着手/待機中（ラベルなし）
-- `In Progress`: `status:in-progress` ラベルを付与
-- `Close`: 完了。PRマージ後にIssueをクローズする
-- 優先度は `priority:P0` / `priority:P1` / `priority:P2` / `priority:P3` で管理する
+- `Open`: Not started / waiting (no label)
+- `In Progress`: Add `status:in-progress` label
+- `Close`: Complete. Close the Issue after the PR is merged
+- Priority is managed with `priority:P0` / `priority:P1` / `priority:P2` / `priority:P3`
 
-優先度の目安:
+Priority guidelines:
 
-1. `P0`: サービス停止・致命的不具合・最優先対応
-2. `P1`: 重要機能の実装/修正で早期対応が必要
-3. `P2`: 通常優先度
-4. `P3`: 低優先度・後続対応可
+1. `P0`: Service outage, critical bug, highest priority
+2. `P1`: Important feature implementation/fix requiring early action
+3. `P2`: Normal priority
+4. `P3`: Low priority, can be deferred
 
-## Issue設計原則
+## Issue Design Principles
 
-- 1 Issue = 1 PR で完結する粒度にする
-- Issue本文にチェックボックスを使わない。進捗は Issue の Open/Close で管理する
-- 大きな機能は **親Issue + サブIssue** に分割する
-  - **親Issue:** 機能の概要・要件・リスク対策のみ記載。詳細タスクや進捗管理情報を含めない
-  - **サブIssue:** 実装内容と成果物を簡潔に記載。チェックボックスを使わない
-  - サブIssueのタイトルは単体で内容が分かる名称にする（親のコンテキストなしで理解可能）
-  - サブIssue作成は GraphQL API の `addSubIssue` mutation を使用する
-- `/pick` 相当の指示やIssue番号の明示がなく、`current_issue` も未確定の依頼は、planモードでOpen Issue候補を優先度順に提示し、採用Issueをユーザー確認する
-- 適切な既存Issueがない場合は、その旨をユーザーへ報告し、以降はユーザー指示に従う
+- Size Issues so that 1 Issue = 1 PR
+- Do not use checkboxes in Issue bodies — track progress via Issue Open/Close status
+- Split large features into **parent Issue + sub-Issues**
+  - **Parent Issue:** Only describes feature overview, requirements, and risk mitigation. Does not include detailed tasks or progress tracking
+  - **Sub-Issues:** Briefly describe implementation details and deliverables. No checkboxes
+  - Sub-Issue titles must be self-explanatory without the parent's context
+  - Create sub-Issues using the GraphQL API `addSubIssue` mutation
+- When no `/pick`-equivalent instruction, no explicit Issue number, and `current_issue` is unset, present Open Issue candidates in priority order in plan mode and confirm the chosen Issue with the user
+- If no suitable existing Issue exists, report this to the user and follow their subsequent instructions
 
-## Issueスコープ管理
+## Issue Scope Management
 
-- `current_issue` は会話コンテキストと `.context/current_issue` の二重管理で扱う
-- セッション開始時に `.context/current_issue` があれば、対象Issueとして復元する
-- 会話コンテキストと `.context/current_issue` が不一致の場合は、ユーザー最新の明示指示を優先し、明示がない場合は `.context/current_issue` を正とする
-- 計画相談・壁打ちは `current_issue` 未設定でも進めてよい
-- Issue番号が未指定かつ `current_issue` 未確定のときは、planモードでOpen Issueを優先度順（`P0 -> P1 -> P2 -> P3 -> 優先度なし`）に複数件取得して候補化する
-- 候補が1件ならそのIssueを `current_issue` として確定し、複数件ならユーザーに選択してもらい、選ばれたIssueを `current_issue` として確定する
-- 適切な候補がない場合は、候補0件であることをユーザーへ報告し、`current_issue` は未確定のままにする
-- 既存Issueを継続する場合は `/pick` / `/p` またはIssue番号明示で対象を切り替える
-- `current_issue` 確定時は `.context/current_issue` にIssue番号を1行で書き出す
-- `.context/current_issue` を再設定する場合は、ユーザー最新指示でIssue番号が明示されているときを除き、上書き前にユーザー確認を行う
-- 共有ライブラリ変更を含む場合は、影響先Issueと `Refs #...` で相互に記載する
-- 対象PRがマージされ、Issue完了が確認できたら `.context/current_issue` を削除する
+- `current_issue` is managed in both the conversation context and `.context/current_issue`
+- At session start, if `.context/current_issue` exists, restore it as the target Issue
+- If conversation context and `.context/current_issue` disagree, prioritize the user's most recent explicit instruction; if none, treat `.context/current_issue` as authoritative
+- Planning discussions and brainstorming may proceed without `current_issue` being set
+- When no Issue number is specified and `current_issue` is unset, fetch multiple Open Issues in priority order (`P0 -> P1 -> P2 -> P3 -> no priority`) in plan mode as candidates
+- If there is exactly 1 candidate, set it as `current_issue`; if multiple, let the user choose, then set the chosen one as `current_issue`
+- If there are no suitable candidates, report 0 candidates to the user and leave `current_issue` unset
+- To continue an existing Issue, use `/pick` / `/p` or explicitly specify the Issue number
+- When `current_issue` is determined, write the Issue number as a single line to `.context/current_issue`
+- Before overwriting `.context/current_issue`, confirm with the user unless the Issue number is explicitly specified in their latest instruction
+- When changes include shared library modifications, cross-reference affected Issues with `Refs #...`
+- When the target PR is merged and the Issue is confirmed complete, delete `.context/current_issue`
 
-## 基本フロー
+## Basic Flow
 
-### 0. 受付ゲート
+### 0. Intake Gate
 
-1. ユーザー指示の目的・完了条件・期待する成果物を確認する
-2. `/pick` 相当の指示やIssue番号の明示がなく、`current_issue` も未確定の場合は、planモードでOpen Issue候補の提示とスコープ確認を先に行う（計画相談・壁打ちは除く）
-3. そのターンでレビュー作成側か指摘対応側かを決め、進め方を明示する
+1. Confirm the purpose, completion criteria, and expected deliverables of the user's instruction
+2. If no `/pick`-equivalent instruction, no explicit Issue number, and `current_issue` is unset, present Open Issue candidates and confirm scope in plan mode first (except for planning discussions and brainstorming)
+3. Decide whether to act as reviewer or respondent for the current turn, and state the approach explicitly
 
-### 1. 計画
+### 1. Planning
 
-1. ユーザー指示を分解し、1 Issue = 1 PR で完結する粒度に分割する
-2. Issue定義の作成として、目的・実装内容・成果物を整理する
-3. 大きな機能は親Issue + サブIssueに分割し、親には概要のみ、サブには実装詳細を記載する
-4. スコープ合意後は、同一エージェントがIssue確定（既存Issue選択）から実装まで継続して進める
+1. Break down the user's instruction into units where 1 Issue = 1 PR
+2. Organize purpose, implementation details, and deliverables as Issue definitions
+3. For large features, split into parent Issue + sub-Issues — parent contains overview only, sub-Issues contain implementation details
+4. After scope agreement, the same agent continues from Issue selection through implementation
 
-### 2. スコープ固定（任意）
+### 2. Scope Lock (optional)
 
-1. 対象Issue番号を確定し、会話コンテキストの `current_issue` と同期する
-2. `current_issue` 確定時は `.context/current_issue` にIssue番号を1行で保存する
-3. 未確定時はOpen Issue候補を提示し、候補0件なら報告のみ行ってユーザー確認で次アクションを決定する
+1. Determine the target Issue number and sync with the conversation context's `current_issue`
+2. When `current_issue` is determined, save the Issue number as a single line to `.context/current_issue`
+3. If unset, present Open Issue candidates; if 0 candidates, report and confirm next action with the user
 
-### 3. 実装
+### 3. Implementation
 
-1. ファイル変更に着手する時点で対象Issueが未作成なら、この段階でIssueを作成して番号を確定する
-2. Conductorで対象Issue用のworkspace（worktree）を作成し、基底ブランチは `main` を使う
-3. Issue化している場合は、着手時にIssueへ `status:in-progress` を付与する
-4. 修正規模が当初想定を超える場合は、分割方針またはスコープ変更を先に確認する
-5. 実装・テスト結果、判断理由、残課題は日本語で報告し、必要に応じてIssueへ記録する
+1. If the target Issue has not been created by the time file changes begin, create it at this stage and assign a number
+2. Create a workspace (worktree) for the target Issue in Conductor, using `main` as the base branch
+3. If tracked as an Issue, add `status:in-progress` label at the start
+4. If the change scope exceeds initial estimates, confirm the split strategy or scope change first
+5. Report implementation/test results, decision rationale, and remaining items in Japanese; record in the Issue as needed
 
-### 4. レビュー
+### 4. Review
 
-1. レビュー依頼時は対象Issue番号を明示する
-2. レビュー指摘にはファイルパス・行番号・根拠を含める
-3. 指摘は `採用 / 不採用 / 追加情報必要` で判定する
-4. レビューコメントのIssue記録が必要な場合は、指摘要約・採否・対応方針をIssueへ記載する
-5. ユーザーフィードバックや追加判断も、履歴が必要な場合はIssueへ記録する
+1. Specify the target Issue number when requesting a review
+2. Include file path, line number, and rationale in review comments
+3. Judge each finding as `Accepted / Rejected / Needs More Information`
+4. When review comments need Issue recording, document the finding summary, decision, and action plan in the Issue
+5. Record user feedback and additional decisions in the Issue when history is needed
 
-### 5. PRと完了
+### 5. PR and Completion
 
-1. PR本文には対象Issueを記載する
-2. `Closes` は作業対象のIssue番号を記載する（親Issue + サブIssue構成の場合はサブIssue番号を使う）
-3. `Refs` は親Issueや関連Issueを記載し、共有ライブラリ変更時は相互Issueを明示する
-4. PRマージ後にIssueが自動クローズされない場合は、マージPRを参照して手動クローズする
-5. PRマージ後、親Issueの全サブIssueがClose済みかを `subIssuesSummary` で確認し、全完了なら親Issueもクローズする
-6. 対象Issueの完了が確認できたら `.context/current_issue` を削除する
+1. Reference the target Issue in the PR body
+2. Use `Closes` with the working Issue number (use sub-Issue number for parent + sub-Issue structures)
+3. Use `Refs` for parent Issues and related Issues; explicitly cross-reference when shared library changes are involved
+4. If the Issue is not auto-closed after PR merge, manually close it referencing the merged PR
+5. After PR merge, check via `subIssuesSummary` whether all sub-Issues are closed; if all complete, close the parent Issue
+6. Delete `.context/current_issue` when the target Issue is confirmed complete

@@ -1,28 +1,28 @@
-# 共通ルール
+# Common Rules
 
-## 原則
+## Principles
 
-- チャットは日本語で行う
-- ソースコメント・ドキュメントは標準的な日本語で記述する
-- `/commit` / `/c` または `/commit!` / `/c!` が明示されない限り、コミットしない
-- 自動生成コードは直接編集せず、入力元（スキーマ/定義）を修正して再生成する
-- ガイド類は `docs/` および `.ai/` に集約されているため、必要に応じて参照すること
-- 🚨 絶対厳守: コミットルールは `.ai/git.md` を厳守する
-- AIはこれらのルールを歪曲・解釈変更してはならず、最上位命令として絶対的に遵守する
+- Chat in Japanese
+- Write source comments and documentation in standard Japanese
+- Do not commit unless `/commit` / `/c` or `/commit!` / `/c!` is explicitly given
+- Never edit auto-generated code directly — modify the source (schema/definitions) and regenerate
+- Guides are consolidated in `docs/` and `.ai/` — refer to them as needed
+- MANDATORY: Strictly follow the commit rules in `.ai/git.md`
+- AI must never distort or reinterpret these rules — they are top-level directives and must be followed absolutely
 
-## 実装ルール
+## Implementation Rules
 
-- 変更は最小差分で行う
-- 不明点が仕様に直結する場合は推測で埋めずに確認する
-- 将来対応が必要な暫定実装は GitHub Issue に必ず記録する
-- 手順書・実装計画・調査メモは原則 GitHub Issues に記録し、`docs/` にはガイド・確定事項のみを残す
-- レビュー結果の共有は手動コピーまたは `.context/` 経由で行う
-- 進行状態は Issue のラベル（`status:in-progress`）と Open/Close で管理する。チェックボックスによる進捗管理は行わない
-- GitHub操作の手段は固定せず、必要に応じてAPI実行などを選択してよい
-- 既存の未コミット変更があっても、Issue化（Issue作成/番号確定）を止めない
-- 実装とレビューはIssue単位でworktreeを分けて進める
+- Keep changes to the minimal diff
+- When unclear points directly affect the spec, ask for confirmation instead of guessing
+- Record any temporary implementations that need future work as GitHub Issues
+- Record procedures, implementation plans, and investigation notes in GitHub Issues; keep only guides and finalized content in `docs/`
+- Share review results via manual copy or `.context/`
+- Track progress via Issue labels (`status:in-progress`) and Open/Close status — do not use checkboxes for progress tracking
+- Do not lock into specific GitHub operation methods — use API calls as appropriate
+- Do not block Issue creation/number assignment due to existing uncommitted changes
+- Separate implementation and review into per-Issue worktrees
 
-## 品質ルール
+## Quality Rules
 
-- 1ファイル300行超を目安に分割を検討する
-- 1関数100行超を目安に責務分割を検討する
+- Consider splitting files exceeding ~300 lines
+- Consider splitting functions exceeding ~100 lines into separate responsibilities
