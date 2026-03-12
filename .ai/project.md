@@ -9,7 +9,7 @@
 - パッケージ名: lolicon
 - 技術スタック: React 18, TypeScript, Bun, tsdown
 - アイコン数: 491
-- ドキュメントサイト: Vite ベース (`docs/`)
+- Showcase サイト: Vite ベース (`showcase/`)
 - ホスティング: lolicon.ichi0g0y.io
 
 ## ディレクトリ構成
@@ -17,8 +17,8 @@
 - `.ai/`: AI共通ルール
 - `.claude/`: Claude用コマンド
 - `.context/`: エージェント間の共有作業領域
-- `docs/`: ドキュメントサイト (Vite + React + Tailwind CSS)
-- `docs/guides/`: ガイド・規約ドキュメント
+- `docs/`: ガイド・規約ドキュメント
+- `showcase/`: アイコンギャラリーサイト (Vite + React + Tailwind CSS)
 - `original/`: オリジナルアイコンデザインファイル (.ai, SVG)
 - `scripts/`: コード生成スクリプト
 - `src/`: ソースコード
@@ -26,7 +26,7 @@
   - `src/glyphs.tsx`: 🔄 自動生成 - グリフデータ
   - `src/icons/`: 🔄 自動生成 - 個別アイコンコンポーネント (491ファイル)
   - `src/index.ts`: 🔄 自動生成 - バレルエクスポート
-- `docs/app/datas/icons.ts`: 🔄 自動生成 - ドキュメント用アイコンリスト
+- `showcase/app/datas/icons.ts`: 🔄 自動生成 - ドキュメント用アイコンリスト
 
 ## 自動生成コード
 
@@ -35,7 +35,7 @@
 - `src/glyphs.tsx`
 - `src/icons/*.tsx`
 - `src/index.ts`
-- `docs/app/datas/icons.ts`
+- `showcase/app/datas/icons.ts`
 
 再生成コマンド: `bun run generate`
 

@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  DOCS_DIR: docs
+  DOCS_DIR: showcase
 
 tasks:
   # === セットアップ ===
@@ -28,37 +28,37 @@ tasks:
     desc: コードをフォーマット
     cmd: bun run format
 
-  # === ドキュメント ===
-  docs:dev:
-    desc: ドキュメントサイトの開発サーバーを起動
+  # === Showcase ===
+  showcase:dev:
+    desc: Showcaseサイトの開発サーバーを起動
     dir: "{{.DOCS_DIR}}"
     cmd: bun run dev
 
-  docs:build:
-    desc: ドキュメントサイトをビルド
+  showcase:build:
+    desc: Showcaseサイトをビルド
     dir: "{{.DOCS_DIR}}"
     cmd: bun run build
 
-  docs:preview:
-    desc: ドキュメントサイトをプレビュー
+  showcase:preview:
+    desc: Showcaseサイトをプレビュー
     dir: "{{.DOCS_DIR}}"
     cmd: bun run preview
 
-  docs:lint:
-    desc: ドキュメントサイトをlint
+  showcase:lint:
+    desc: Showcaseサイトをlint
     dir: "{{.DOCS_DIR}}"
     cmd: bun run lint
 
-  docs:typecheck:
-    desc: ドキュメントサイトの型チェック
+  showcase:typecheck:
+    desc: Showcaseサイトの型チェック
     dir: "{{.DOCS_DIR}}"
     cmd: bun run typecheck
 
   # === 横断 ===
   lint:all:
     desc: 全プロジェクトをlint
-    deps: [lint, docs:lint]
+    deps: [lint, showcase:lint]
 
   check:
     desc: lint + 型チェックを一括実行
-    deps: [lint:all, docs:typecheck]
+    deps: [lint:all, showcase:typecheck]

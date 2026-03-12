@@ -373,10 +373,10 @@ for (const key of allKeys) {
 fs.writeFileSync(INDEX_OUT, indexFile)
 console.log(`  Written to ${INDEX_OUT}`)
 
-// ── Generate docs/app/datas/icons.ts ──
+// ── Generate showcase/app/datas/icons.ts ──
 
-const DOCS_ICONS_OUT = path.join(ROOT, 'docs/app/datas/icons.ts')
-console.log('Generating docs/app/datas/icons.ts...')
+const DOCS_ICONS_OUT = path.join(ROOT, 'showcase/app/datas/icons.ts')
+console.log('Generating showcase/app/datas/icons.ts...')
 
 let docsFile = 'import {\n'
 for (const key of allKeys) {
