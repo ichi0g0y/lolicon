@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "setup": "bun install",
+    "build": "bun run build",
+    "lint": "bun run lint",
+    "format": "bun run format",
+    "generate": "bun run generate"
+  }
+}

@@ -10,3 +10,9 @@ dist/
 // wrangler
 .wrangler/
 .wrangler-build-test/
+
+// claude local settings
+.claude/settings.local.json
+
+// context (agent workspace)
+.context/
