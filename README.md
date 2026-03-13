@@ -2,7 +2,7 @@
 
 lol, friendly, cute React iconset
 
-[docs](https://lolicon.ichi0g0y.io)
+[showcase](https://lolicon.ichi0g0y.io)
 
 ## Install
 
