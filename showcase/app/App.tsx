@@ -1,5 +1,8 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, createElement } from 'react'
+import type { ComponentType } from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
 import {
+  CloudDownloadIcon,
   DoorLeaveIcon,
   SunIcon,
   MoonIcon,
@@ -80,6 +83,21 @@ export default function App() {
     [mode],
   )
 
+  const handleDownload = useCallback(
+    (e: React.MouseEvent, name: string, Icon: ComponentType<{ size?: number | string }>) => {
+      e.stopPropagation()
+      const svgString = renderToStaticMarkup(createElement(Icon, { size: 32 }))
+      const blob = new Blob([svgString], { type: 'image/svg+xml' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${toKebab(name)}.svg`
+      a.click()
+      URL.revokeObjectURL(url)
+    },
+    [],
+  )
+
   const filtered = filter
     ? Icons.filter((icon) => {
         const q = filter.toLowerCase()
@@ -138,8 +156,17 @@ export default function App() {
             <div
               key={icon.name}
               onClick={() => handleCopy(icon.name)}
-              className='flex h-36 w-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-xl bg-ctp-l-surface0 p-4 text-center whitespace-normal break-words transition-all select-none hover:scale-105 hover:bg-ctp-l-surface1 active:scale-95 dark:bg-ctp-surface0 dark:hover:bg-ctp-surface1'
+              className='group relative flex h-36 w-40 cursor-pointer flex-col items-center justify-center gap-3 rounded-xl bg-ctp-l-surface0 p-4 text-center whitespace-normal break-words transition-all select-none hover:scale-105 hover:bg-ctp-l-surface1 active:scale-95 dark:bg-ctp-surface0 dark:hover:bg-ctp-surface1'
             >
+              <button
+                type='button'
+                onClick={(e) => handleDownload(e, icon.name, icon.icon)}
+                aria-label='Download SVG'
+                title='Download SVG'
+                className='absolute top-2 right-2 cursor-pointer rounded-md p-1 opacity-0 transition-opacity hover:bg-ctp-l-surface2 group-hover:opacity-100 dark:hover:bg-ctp-surface2'
+              >
+                <CloudDownloadIcon size={21} />
+              </button>
               <icon.icon size={52} />
               {isCopied ? (
                 <span className='font-bold text-ctp-l-green dark:text-ctp-green'>Copied!</span>
