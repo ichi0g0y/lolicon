@@ -12,6 +12,7 @@ import {
   EmbedIcon,
 } from 'lolicon'
 import { Icons } from '~/datas/icons'
+import GirlLogo from '~/components/GirlLogo'
 
 type Theme = 'system' | 'light' | 'dark'
 
@@ -126,7 +127,8 @@ export default function App() {
         </button>
       </div>
 
-      <span className='mt-16 text-5xl' style={{ fontFamily: '"Cherry Bomb One", cursive' }}>LOLICON</span>
+      <GirlLogo className='mt-16 h-24 w-24' />
+      <span className='text-5xl' style={{ fontFamily: '"Cherry Bomb One", cursive' }}>LOLICON</span>
       <span>lol, cute, friendry Rect iconset :)</span>
       <a href='https://github.com/ichi0g0y/lolicon' target='_blank'>
         <span className='flex items-center text-lg font-extrabold'>
