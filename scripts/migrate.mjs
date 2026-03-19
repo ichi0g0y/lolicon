@@ -131,19 +131,16 @@ function parseSupercons() {
   return glyphs
 }
 
-// ── Parse Lolicon icons (from main branch via git) ──
+// ── Parse Lolicon icons (from working tree) ──
 
 function parseLoliconIcons() {
   const icons = {}
 
-  // Get file list from main branch
   let fileList
   try {
-    fileList = execSync('git show main:src/icons/', { cwd: ROOT, encoding: 'utf-8' })
-      .split('\n')
-      .filter(f => f.endsWith('.tsx'))
+    fileList = fs.readdirSync(ICONS_DIR).filter(f => f.endsWith('.tsx'))
   } catch {
-    console.warn('  Warning: Could not read icons from main branch, skipping Lolicon-only icons')
+    console.warn('  Warning: Could not read icons directory, skipping Lolicon icons')
     return icons
   }
 
@@ -153,26 +150,21 @@ function parseLoliconIcons() {
 
     let content
     try {
-      content = execSync(`git show main:src/icons/${file}`, { cwd: ROOT, encoding: 'utf-8' })
+      content = fs.readFileSync(path.join(ICONS_DIR, file), 'utf-8')
     } catch {
       continue
     }
 
-    // Find children={ and extract content using brace counting
-    const childrenIdx = content.indexOf('children={')
-    if (childrenIdx === -1) continue
+    // Extract SVG children: everything between "{...props}\n    >\n" and "\n    </svg>"
+    const openMarker = '{...props}\n    >\n'
+    const closeMarker = '\n    </svg>'
+    const openIdx = content.indexOf(openMarker)
+    if (openIdx === -1) continue
+    const contentStart = openIdx + openMarker.length
+    const contentEnd = content.indexOf(closeMarker, contentStart)
+    if (contentEnd === -1) continue
 
-    const braceStart = childrenIdx + 'children={'.length
-    let depth = 1
-    let pos = braceStart
-
-    while (pos < content.length && depth > 0) {
-      if (content[pos] === '{') depth++
-      else if (content[pos] === '}') depth--
-      if (depth > 0) pos++
-    }
-
-    const svgContent = content.substring(braceStart, pos).trim()
+    const svgContent = content.substring(contentStart, contentEnd).trim()
     icons[kebab] = { pascalName: name, svgContent }
   }
 
@@ -245,9 +237,9 @@ for (const key of allKeys) {
 // ── Add Retro variants for overlapping icons that have originals ──
 
 const ORIGINAL_DIR = path.join(ROOT, 'original')
-const originalFiles = fs.readdirSync(ORIGINAL_DIR).filter(f => f.endsWith('.ai'))
+const originalFiles = fs.readdirSync(ORIGINAL_DIR).filter(f => f.endsWith('.ai') || f.endsWith('.af'))
 const originalKebabNames = originalFiles.map(f => {
-  const name = f.replace('.ai', '')
+  const name = f.replace(/\.(ai|af)$/, '')
   // Normalize: underscore/camelCase → kebab-case
   return name
     .replace(/_/g, '-')
@@ -260,6 +252,11 @@ for (const origKebab of originalKebabNames) {
   // Check if this original icon overlaps with Supercons
   if (superconSet.has(origKebab) && lolicon[origKebab]) {
     const retroKey = `${origKebab}-retro`
+    // Skip if the retro key already exists as a Lolicon original
+    if (loliconSet.has(retroKey)) {
+      console.log(`  Retro variant skipped: '${retroKey}' already exists as Lolicon original`)
+      continue
+    }
     mergedGlyphs[retroKey] = lolicon[origKebab].svgContent
     allKeys.push(retroKey)
     retroKeys.push(retroKey)
@@ -270,6 +267,18 @@ allKeys.sort()
 
 if (retroKeys.length > 0) {
   console.log(`  Added ${retroKeys.length} Retro variant(s)`)
+}
+
+// ── Check for original icons colliding with Supercons ──
+
+const collidingOriginals = originalKebabNames.filter(k => superconSet.has(k))
+if (collidingOriginals.length > 0) {
+  console.error(`\n  ✗ Error: original icon name(s) collide with Supercons:`)
+  for (const k of collidingOriginals) {
+    console.error(`    - original/${k} ↔ supercons/${k}`)
+  }
+  console.error('  Rename the original file(s) to avoid collision.')
+  process.exit(1)
 }
 
 // ── Generate src/glyphs.tsx ──
@@ -294,18 +303,43 @@ glyphsFile += `}\n\nexport const glyphNames = Object.keys(glyphs)\n\nexport type
 fs.writeFileSync(GLYPHS_OUT, glyphsFile)
 console.log(`  Written to ${GLYPHS_OUT}`)
 
-// ── Generate individual component files ──
+// ── Generate individual component files (Supercons-derived only) ──
 
 console.log('Generating individual icon components...')
 
-// Delete existing icon files
-const existingFiles = fs.readdirSync(ICONS_DIR).filter(f => f.endsWith('.tsx'))
-for (const file of existingFiles) {
-  fs.unlinkSync(path.join(ICONS_DIR, file))
-}
-console.log(`  Deleted ${existingFiles.length} existing icon files`)
+// Determine which keys need component generation (Supercons-derived + Retro variants)
+// Lolicon-only icons already have their own files — do not overwrite them
+const loliconOnlySet = new Set(loliconOnly)
+const keysToGenerate = allKeys.filter(key =>
+  (superconSet.has(key) || retroKeys.includes(key)) && !loliconOnlySet.has(key)
+)
 
-for (const key of allKeys) {
+// Delete existing files only for keys we will regenerate
+let deletedCount = 0
+for (const key of keysToGenerate) {
+  const fileName = `${kebabToPascal(key)}.tsx`
+  const filePath = path.join(ICONS_DIR, fileName)
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath)
+    deletedCount++
+  }
+}
+// Delete files for case-collision keys that were removed from allKeys,
+// but only if the target Lolicon key is NOT a Lolicon original
+// (macOS is case-insensitive, so deleting Checkbox.tsx would also remove CheckBox.tsx)
+for (const sk of Object.keys(caseCollisionMap)) {
+  const targetLoliconKey = caseCollisionMap[sk]
+  if (loliconOnlySet.has(targetLoliconKey)) continue
+  const fileName = `${kebabToPascal(sk)}.tsx`
+  const filePath = path.join(ICONS_DIR, fileName)
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath)
+    deletedCount++
+  }
+}
+console.log(`  Deleted ${deletedCount} existing icon files`)
+
+for (const key of keysToGenerate) {
   const pascalName = kebabToPascal(key)
   const svgContent = mergedGlyphs[key]
 
@@ -351,7 +385,7 @@ ${pascalName}Icon.displayName = '${pascalName}Icon'
   fs.writeFileSync(path.join(ICONS_DIR, fileName), component)
 }
 
-console.log(`  Generated ${allKeys.length} icon components`)
+console.log(`  Generated ${keysToGenerate.length} Supercons-derived components (${loliconOnly.length} Lolicon originals preserved)`)
 
 // ── Generate src/index.ts ──
 
